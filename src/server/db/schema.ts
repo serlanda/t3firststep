@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
@@ -18,11 +21,12 @@ import {
  */
 export const createTable = pgTableCreator((name) => `t3gallery_${name}`);
 
-export const posts = createTable(
-  "post",
+export const images = createTable(
+  "image",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    name: varchar("name", { length: 256 }).notNull(),
+    url: varchar("url", { length: 1024 }).notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
