@@ -1,7 +1,25 @@
+
+const mockUrls = [
+  "https://utfs.io/f/79f2cab3-a18c-46b4-a8f7-a78e8a76a2bd-rcma58.jpg",
+  "https://utfs.io/f/b4febf6e-94f8-47cb-be8f-b912a7a3fed5-rcma3p.jpg",
+  "https://utfs.io/f/28954bb6-9be0-49b3-8f0c-c1d0ea48e91e-rebmcf.jpg",
+];
+
+const mockImages = mockUrls.map((url, index) => ({
+  id: index + 1,
+  url,
+}));
+
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      hello (gallery in progress)
+    <main className="">
+      <div className="flex flex-wrap gap-4">
+        {[...mockImages, ...mockImages, ...mockImages, ...mockImages].map((image) => (
+          <div key={image.id} className="w-48">
+            <img src={image.url}/>
+          </div>
+        ))}
+      </div>
     </main>
   );
 }
