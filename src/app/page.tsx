@@ -1,21 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { db } from "~/server/db";
+import Image from "next/image";
+import { getMyImages } from "~/server/queries";
 
 export const dynamic = "force-dynamic";
 
 async function Images() {
-  const images = await db.query.images.findMany({
-    orderBy: (model, { desc }) => desc(model.id),
-  });
+
+  const images = await getMyImages();
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap justify-center items-center gap-4">
       {images.map((image) => (
-        <div key={image.id} className="flex w-48 flex-col">
-          <img src={image.url} />
-          <div>{image.name}</div>
+        <div key={image.id} className="flex w-[300px] h-[350px] flex-col p-4 border">
+          <Image src={image.url} className="w-[300px] h-[300px] object-cover border-b" width={300} height={300} alt={image.name}/>
+          <div className="">{image.name}</div>
         </div>
       ))}
     </div>
@@ -23,8 +21,6 @@ async function Images() {
 }
 
 export default async function HomePage() {
-
-  // console.log(posts);
 
   return (
     <main className="">
